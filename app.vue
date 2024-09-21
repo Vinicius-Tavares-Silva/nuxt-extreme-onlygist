@@ -1,5 +1,5 @@
 <template>
-  <div>
-    <Button label="Submit" />
-  </div>
+  <NuxtLayout>
+    <NuxtPage></NuxtPage>
+  </NuxtLayout>
 </template>
