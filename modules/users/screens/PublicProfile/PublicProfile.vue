@@ -11,8 +11,8 @@ const route = useRoute()
 const router = useRouter()
 
 const handleNavigateToDetail = (id: string) => {
-  const { userName } = route.params
-  router.push(`/${userName}/gist/${id}`)
+  const { username } = route.params
+  router.push(`/${username}/gist/${id}`)
 }
 </script>
 
