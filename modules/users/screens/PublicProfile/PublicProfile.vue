@@ -3,9 +3,17 @@ import PublicHeadline from '@/modules/users/components/PublicHeadline/PublicHead
 import WidgetGroup from '@/modules/reports/components/Widget/Group/Group.vue'
 import WidgetCondensed from '@/modules/reports/components/Widget/Condensed/Condensed.vue'
 import WidgetGroupLoader from '@/modules/reports/components/Widget/Group/Loader.vue'
-import GistCardGroup from '@/modules/gistis/components/Card/Group/Group.vue'
-import GistCardItem from '@/modules/gistis/components/Card/Item/Item.vue'
+import GistCardGroup from '@/modules/gists/components/Card/Group/Group.vue'
+import GistCardGroupLoader from '@/modules/gists/components/Card/Group/Loader.vue'
+import GistCardItem from '@/modules/gists/components/Card/Item/Item.vue'
 
+const route = useRoute()
+const router = useRouter()
+
+const handleNavigateToDetail = (id: string) => {
+  const { userName } = route.params
+  router.push(`/${userName}/gist/${id}`)
+}
 </script>
 
 <template>
@@ -20,8 +28,20 @@ import GistCardItem from '@/modules/gistis/components/Card/Item/Item.vue'
   </WidgetGroup>
 
   <WidgetDefault title="Todos os gists">
-    <GistCardGroup>
-      <GistCardItem />
-    </GistCardGroup>
+    <GistCardGroupLoader :loading="false">
+      <GistCardGroup>
+        <GistCardItem
+          id="1"
+          title="useCurrentUser.ts"
+          description="Hook para controlar o **user** logado"
+          lang="typescript"
+          :price="10"
+          @tap="handleNavigateToDetail"
+        />
+        <GistCardItem />
+        <GistCardItem />
+        <GistCardItem />
+      </GistCardGroup>
+    </GistCardGroupLoader>
   </WidgetDefault>
 </template>
