@@ -9,6 +9,7 @@ export function useSession() {
 
   const logout = async () => {
     const response = await services.auth.signOut()
+    return response
   }
 
   return {

@@ -4,7 +4,7 @@ const router = useRouter()
 
 const navigateToPanel = async () => {
   await new Promise(resolve => setTimeout(resolve, 2000))
-  router.push('app/panel')
+  router.push('/app/panel')
 }
 
 onMounted(() => {
