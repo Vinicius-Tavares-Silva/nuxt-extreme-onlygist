@@ -1,5 +1,9 @@
 import { useSession } from '@/modules/auth/composables/useSession/useSession'
 import type { User } from '@/modules/users/entities/User/User'
+import type { InjectionKey } from 'vue'
+import type { MyselfContextProvider } from './types'
+
+export const myselfKey = Symbol('myself') as InjectionKey<MyselfContextProvider>
 
 export function useMyself() {
   const { logAndTrack } = useLogger()
@@ -7,6 +11,8 @@ export function useMyself() {
   const session = useSession()
   const loading = ref<boolean>(true)
   const user = ref<User>()
+
+  provide<MyselfContextProvider>(myselfKey, { user, loading })
 
   const fetchUser = async () => {
     loading.value = true
