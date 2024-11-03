@@ -1,0 +1,55 @@
+<script setup lang="ts">
+import HeadlineEdit from '@/modules/users/components/HeadlineEdit/HeadlineEdit.vue'
+import HeadlineEditLoader from '@/modules/users/components/HeadlineEdit/Loader.vue'
+import BasicInfoForm from '@/modules/users/components/BasicInfoForm/BasicInfoForm.vue'
+import AddressForm from '@/modules/users/components/AddressForm/AddressForm.vue'
+import { useUserProfileActions } from '@/modules/users/composables/useUserProfileActions/useUserProfileActions'
+import { myselfKey } from '@/modules/users/composables/useMyself/useMyself'
+import type { MyselfContextProvider } from '@/modules/users/composables/useMyself/types'
+
+const { user, loading } = inject(myselfKey) as MyselfContextProvider
+const router = useRouter()
+const { share } = useUserProfileActions()
+
+const handleShare = (username: string) => {
+  share(username)
+}
+
+const handleNavigateToProfile = (username: string) => {
+  router.push(`/${username}`)
+}
+
+const handleZipCodeSearch = () => {
+  console.log('Buscando endereço...')
+}
+
+</script>
+
+<template>
+  <HeadlineEditLoader :loading="loading">
+    <HeadlineEdit
+      :username="user?.username!"
+      :avatar-url="user?.avatarUrl!"
+      class="my-10"
+      @share="handleShare"
+      @navigate-to-profile="handleNavigateToProfile"
+    />
+  </HeadlineEditLoader>
+
+  <WidgetDefault title="Informações básicas">
+    <BasicInfoForm :errors="errors" v-model="user" />
+  </WidgetDefault>
+
+  <WidgetDefault title="Endereço" class="mt-5">
+    <AddressForm />
+  </WidgetDefault>
+
+  <!-- <Button
+    @click="handleUpdateProfile()"
+    :loading="updateLoading"
+    class="mt-5 w-full md:w-auto"
+    label="Atualizar"
+    icon="pi pi-pencil"
+    icon-pos="right"
+  /> -->
+</template>
