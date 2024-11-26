@@ -41,7 +41,7 @@ const user = defineModel<User>({
       </div>
 
       <div class="flex flex-col gap-2 flex-1">
-        <label for="phone">Site</label>
+        <label for="phone">Telefone</label>
         <InputText id="phone" placeholder="(99) 9 9999-9999" v-model="user.phone" />
         <small v-if="props.errors?.phone">{{ props.errors?.phone._errors[0] }}</small>
       </div>

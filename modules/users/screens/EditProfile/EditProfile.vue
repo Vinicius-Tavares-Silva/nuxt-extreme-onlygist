@@ -4,6 +4,7 @@ import HeadlineEditLoader from '@/modules/users/components/HeadlineEdit/Loader.v
 import BasicInfoForm from '@/modules/users/components/BasicInfoForm/BasicInfoForm.vue'
 import AddressForm from '@/modules/users/components/AddressForm/AddressForm.vue'
 import { useUserProfileActions } from '@/modules/users/composables/useUserProfileActions/useUserProfileActions'
+import { useUserUpdate } from '@/modules/users/composables/useUserUpdate/useUserUpdate'
 import { useAddressUpdate } from '@/modules/users/composables/useAddressUpdate/useAddressUpdate'
 import { myselfKey } from '@/modules/users/composables/useMyself/useMyself'
 import type { MyselfContextProvider } from '@/modules/users/composables/useMyself/types'
@@ -13,6 +14,8 @@ const router = useRouter()
 const { share } = useUserProfileActions()
 
 const {loading: addressLoading, searchZipCode, address } = useAddressUpdate({ user })
+
+const { update, loading: updateLoading, errors, safeParse } = useUserUpdate({ user })
 
 const handleZipCodeSearch = () => {
   searchZipCode()
@@ -24,6 +27,17 @@ const handleShare = (username: string) => {
 
 const handleNavigateToProfile = (username: string) => {
   router.push(`/${username}`)
+}
+
+const handleUpdateProfile = async () => {
+  const isValid = safeParse().success
+
+  if (!isValid || !user.value) {
+    return
+  }
+
+  user.value.address = address.value
+  update()
 }
 
 </script>
@@ -51,12 +65,12 @@ const handleNavigateToProfile = (username: string) => {
     />
   </WidgetDefault>
 
-  <!-- <Button
+  <Button
     @click="handleUpdateProfile()"
     :loading="updateLoading"
     class="mt-5 w-full md:w-auto"
     label="Atualizar"
     icon="pi pi-pencil"
     icon-pos="right"
-  /> -->
+  />
 </template>
