@@ -66,7 +66,7 @@ const address = defineModel<Address>({
         <InputText placeholder="Aclimação" v-model="address.neighborhood" id="neighborhood" />
       </div>
       <div class="flex flex-col gap-2 flex-1">
-        <label for="complement">Estado</label>
+        <label for="complement">Complemento</label>
         <InputText placeholder="Apto 22" v-model="address.complement" id="complement" />
       </div>
     </div>
